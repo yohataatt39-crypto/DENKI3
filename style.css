@@ -1,0 +1,44 @@
+
+:root{
+  --bg:#f1f5f9;--card:#fff;--text:#0f172a;--muted:#64748b;
+  --line:#cbd5e1;--accent:#2563eb;--accent2:#1d4ed8;
+  --ok:#166534;--okbg:#dcfce7;--ng:#991b1b;--ngbg:#fee2e2;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text)}
+.topbar{background:#0f172a;color:#fff;padding:22px 18px}
+.topbar h1{margin:0 0 5px;font-size:1.45rem}
+.topbar p{margin:0;color:#cbd5e1}
+.container{max-width:920px;margin:24px auto;padding:0 14px}
+.card{background:var(--card);border-radius:14px;padding:22px;box-shadow:0 4px 18px rgba(15,23,42,.08)}
+.hidden{display:none!important}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+label{display:flex;flex-direction:column;gap:6px;font-weight:650}
+select{padding:10px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:1rem}
+.checks{display:flex;gap:20px;flex-wrap:wrap;margin:18px 0}
+.checks label{flex-direction:row;font-weight:500;align-items:center}
+button{border:0;border-radius:9px;padding:11px 17px;font-size:1rem;font-weight:700;cursor:pointer}
+.primary{background:var(--accent);color:#fff}.primary:hover{background:var(--accent2)}
+.secondary{background:#e2e8f0;color:#0f172a}
+.stats{margin-top:18px;color:var(--muted)}
+.quiz-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted)}
+.badge{background:#e0e7ff;color:#3730a3;padding:5px 9px;border-radius:999px;font-size:.85rem}
+.progressbar{height:7px;background:#e2e8f0;border-radius:999px;margin:12px 0 24px;overflow:hidden}
+#progressFill{height:100%;background:var(--accent);width:0}
+#question{white-space:pre-line;font-size:1.25rem;line-height:1.7}
+.question-note{white-space:pre-line;color:#475569;margin:-5px 0 15px;line-height:1.6}
+.choices{display:grid;gap:10px}
+.choice{width:100%;text-align:left;background:#fff;border:1px solid var(--line);padding:13px 15px;font-weight:600}
+.choice:hover:not(:disabled){border-color:var(--accent);background:#eff6ff}
+.choice.correct{background:var(--okbg);border-color:#22c55e;color:var(--ok)}
+.choice.wrong{background:var(--ngbg);border-color:#ef4444;color:var(--ng)}
+.choice:disabled{cursor:default}
+.feedback{margin-top:18px;border-radius:10px;padding:15px;line-height:1.7;white-space:pre-line}
+.feedback.ok{background:var(--okbg);color:var(--ok)}
+.feedback.ng{background:var(--ngbg);color:var(--ng)}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.score{font-size:2rem;font-weight:800;margin:14px 0}
+.review-item{border-top:1px solid #e2e8f0;padding:14px 0}
+.review-item strong{display:block;margin-bottom:5px}
+footer{text-align:center;color:var(--muted);padding:18px;font-size:.85rem}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.card{padding:17px}.topbar h1{font-size:1.25rem}}

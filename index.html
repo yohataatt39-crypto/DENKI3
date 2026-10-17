@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <title>電気工事施工管理 5択問題</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>電気工事施工管理 5択問題</h1>
+      <p>計算問題・法規を、出題順や数値を変えて反復学習</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="setup" class="card">
+      <h2>出題設定</h2>
+
+      <div class="grid">
+        <label>
+          学習モード
+          <select id="mode">
+            <option value="random">ランダム</option>
+            <option value="weak">間違えた問題を優先</option>
+            <option value="unseen">未出題を優先</option>
+            <option value="category">分野別</option>
+          </select>
+        </label>
+
+        <label>
+          出題数
+          <select id="count">
+            <option value="5">5問</option>
+            <option value="10" selected>10問</option>
+            <option value="20">20問</option>
+            <option value="999">全問</option>
+          </select>
+        </label>
+
+        <label>
+          分野
+          <select id="category">
+            <option value="all">全分野</option>
+            <option value="circuit">RLC直列回路</option>
+            <option value="transformer">変圧器・一次電流</option>
+            <option value="short">三相短絡電流</option>
+            <option value="tension">架空配電線路・水平張力</option>
+            <option value="law">建設業法</option>
+            <option value="electricity">電気事業法</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="checks">
+        <label><input id="shuffleChoices" type="checkbox" checked> 選択肢を毎回シャッフル</label>
+        <label><input id="numericVariant" type="checkbox" checked> 計算問題の数値を変える</label>
+      </div>
+
+      <button id="startBtn" class="primary">学習開始</button>
+      <button id="resetHistoryBtn" class="secondary">学習履歴をリセット</button>
+
+      <div class="stats" id="homeStats"></div>
+    </section>
+
+    <section id="quiz" class="card hidden">
+      <div class="quiz-head">
+        <span id="progress"></span>
+        <span id="categoryBadge" class="badge"></span>
+      </div>
+
+      <div class="progressbar"><div id="progressFill"></div></div>
+      <h2 id="question"></h2>
+      <div id="questionNote" class="question-note"></div>
+      <div id="choices" class="choices"></div>
+
+      <div id="feedback" class="feedback hidden"></div>
+
+      <div class="actions">
+        <button id="nextBtn" class="primary hidden">次の問題</button>
+        <button id="quitBtn" class="secondary">中断して戻る</button>
+      </div>
+    </section>
+
+    <section id="result" class="card hidden">
+      <h2>結果</h2>
+      <div id="score" class="score"></div>
+      <div id="resultSummary"></div>
+      <div id="reviewList" class="review-list"></div>
+      <div class="actions">
+        <button id="retryWrongBtn" class="primary">今回の間違いを復習</button>
+        <button id="backBtn" class="secondary">出題設定へ戻る</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>学習履歴はこのブラウザの localStorage に保存されます。</footer>
+  <script src="app.js"></script>
+</body>
+</html>
