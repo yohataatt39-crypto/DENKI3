@@ -354,6 +354,26 @@ const fixedQuestions = [
     "現行の電気事業法施行規則では、第三種の範囲は50,000V未満ですが、「出力5,000kW以上の発電所又は蓄電所」は除外されています。"
   )
 
+  ,
+  q("tension-stay-1","tension",
+    "末端の電柱に、電線から水平方向に 4.0 kN の張力が作用している。支線と電柱（鉛直方向）とのなす角が30°のとき、支線に必要な張力として最も近いものはどれか。",
+    ["8.0 kN","4.0 kN","4.6 kN","6.9 kN","2.0 kN"],
+    "8.0 kN",
+    "支線張力をS、電線の水平張力をT、支線と電柱との角度をθとすると、支線張力の水平成分は S sinθ です。\nつり合いより T=S sinθ。\nしたがって S=T/sinθ=4.0/sin30°=8.0kN。"
+  ),
+  q("tension-stay-2","tension",
+    "電柱に作用する電線の水平張力が 6.0 kN である。支線と電柱とのなす角が45°の場合、電線の水平張力につり合うために必要な支線張力として最も近いものはどれか。",
+    ["8.5 kN","6.0 kN","4.2 kN","12.0 kN","3.0 kN"],
+    "8.5 kN",
+    "支線と電柱との角度をθとした場合、水平成分は S sinθ です。\nS=T/sinθ=6.0/sin45°≒8.49kN。したがって約8.5kNです。"
+  ),
+  q("tension-stay-formula","tension",
+    "電柱に対する電線の水平張力をT、支線の張力をS、支線と電柱（鉛直方向）とのなす角をθとする。水平張力につり合う支線張力Sを求める式として正しいものはどれか。",
+    ["S = T / sinθ","S = T × sinθ","S = T / cosθ","S = T × cosθ","S = T × tanθ"],
+    "S = T / sinθ",
+    "支線の水平成分は S sinθ です。水平力のつり合い T=S sinθ から、S=T/sinθ となります。\n※角度が地面（水平方向）から与えられる場合は、成分の取り方が変わるので注意します。"
+  )
+
 ];
 
 /* ---------------------------
@@ -452,11 +472,34 @@ function genTension(){
   );
 }
 
+
+function genStayTension(){
+  const sets=[
+    {T:3.0,deg:30},{T:4.0,deg:30},{T:5.0,deg:45},{T:6.0,deg:45},
+    {T:8.0,deg:60},{T:10.0,deg:30},{T:12.0,deg:60}
+  ];
+  const s=sets[Math.floor(Math.random()*sets.length)];
+  const rad=s.deg*Math.PI/180;
+  const S=s.T/Math.sin(rad);
+  const correct=`${fmt(S,2)} kN`;
+  const wrong=[
+    `${fmt(s.T*Math.sin(rad),2)} kN`,
+    `${fmt(s.T/Math.cos(rad),2)} kN`,
+    `${fmt(s.T*Math.cos(rad),2)} kN`,
+    `${fmt(s.T*Math.tan(rad),2)} kN`
+  ];
+  return q("stay-calc-"+Date.now()+"-"+Math.random(),"tension",
+    `末端の電柱に、電線から水平方向に ${fmt(s.T,1)} kN の張力が作用している。支線と電柱（鉛直方向）とのなす角が ${s.deg}° のとき、電線の水平張力につり合うために必要な支線張力として最も近いものはどれか。`,
+    [correct,...wrong],correct,
+    `支線張力をS、電線の水平張力をT、支線と電柱との角度をθとします。\n支線の水平成分は S sinθ なので、T=S sinθ。\nしたがって S=T/sinθ=${fmt(s.T,1)}/sin${s.deg}°=${fmt(S,2)}kN。`
+  );
+}
+
 const generators = {
   circuit: genRLC,
   transformer: genTransformer,
   short: genShort,
-  tension: genTension
+  tension: () => Math.random() < 0.5 ? genTension() : genStayTension()
 };
 
 let state = {
